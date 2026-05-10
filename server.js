@@ -11,6 +11,9 @@ conectarDB();
 const app = express();
 app.use(express.json());
 
+const cors = require('cors');
+app.use(cors());
+
 // Ruta de prueba
 app.get('/', (req, res) => {
   res.json({ mensaje: 'Servidor de Gestión de Turnos Médicos funcionando' });
@@ -25,3 +28,5 @@ app.listen(PORT, () => {
 });
 
 app.use('/api/auth', require('./routes/authRoutes'));
+
+app.use('/api/turnos', require('./routes/turnoRoutes'));

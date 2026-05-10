@@ -113,10 +113,23 @@ const eliminarUsuario = async (req, res) => {
   }
 };
 
+// @desc    Obtener lista de médicos
+// @route   GET /api/usuarios/medicos
+// @access  Private (cualquier usuario autenticado)
+const obtenerMedicos = async (req, res) => {
+  try {
+    const medicos = await Usuario.find({ rol: 'medico' }).select('-password');
+    res.status(200).json({ medicos });
+  } catch (error) {
+    res.status(500).json({ mensaje: 'Error al obtener médicos', error: error.message });
+  }
+};
+
 module.exports = {
   crearUsuario,
   obtenerUsuarios,
   obtenerUsuarioPorId,
   actualizarUsuario,
   eliminarUsuario,
+  obtenerMedicos,
 };
