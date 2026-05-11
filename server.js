@@ -11,6 +11,12 @@ conectarDB();
 const app = express();
 app.use(express.json());
 
+const corsOptions = {
+  origin: 'gestion-turnos-phi.vercel.app', 
+  optionsSuccessStatus: 200,
+};
+app.use(cors(corsOptions));
+
 const cors = require('cors');
 app.use(cors());
 
