@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api';
+//import axios from 'axios';
 import Navbar from '../components/Navbar';
 import { useNavigate } from 'react-router-dom';
 
@@ -29,7 +30,8 @@ const SolicitarTurno = () => {
   const cargarMedicos = async () => {
   try {
     const config = { headers: { Authorization: `Bearer ${token}` } };
-    const res = await axios.get('http://localhost:3000/api/usuarios/medicos', config);
+    const res = await api.get('/api/usuarios/medicos', config);
+    //const res = await axios.get('http://localhost:3000/api/usuarios/medicos', config);
     setMedicos(res.data.medicos);
   } catch (err) {
   if (err.response) {
@@ -54,7 +56,8 @@ const SolicitarTurno = () => {
     try {
       const config = { headers: { Authorization: `Bearer ${token}` } };
       // eslint-disable-next-line no-unused-vars
-      const res = await axios.post('http://localhost:3000/api/turnos', form, config);
+      const res = await api.post('/api/turnos', form, config);
+      //const res = await axios.post('http://localhost:3000/api/turnos', form, config);
       setMensaje('Turno solicitado exitosamente. Redirigiendo...');
       setTimeout(() => navigate('/dashboard'), 2000);
     } catch (err) {

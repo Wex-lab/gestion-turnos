@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api';
+//import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 
@@ -24,7 +25,8 @@ const Dashboard = () => {
       const cargarUsuarios = async () => {
         try {
           const config = { headers: { Authorization: `Bearer ${token}` } };
-          const res = await axios.get('http://localhost:3000/api/usuarios', config);
+          const res = await api.get('/api/usuarios', config);
+          //const res = await axios.get('http://localhost:3000/api/usuarios', config);
           setUsuarios(res.data.usuarios);
         // eslint-disable-next-line no-unused-vars
         } catch (error) {

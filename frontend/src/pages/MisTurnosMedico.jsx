@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api';
+//import axios from 'axios';
 import Navbar from '../components/Navbar';
 import { useNavigate } from 'react-router-dom';
 
@@ -24,7 +25,8 @@ const MisTurnosMedico = () => {
   const cargarTurnos = async () => {
   try {
     const config = { headers: { Authorization: `Bearer ${token}` } };
-    const res = await axios.get('http://localhost:3000/api/turnos', config);
+    const res = await api.get('/api/turnos', config);
+    //const res = await axios.get('http://localhost:3000/api/turnos', config);
     setTurnos(res.data.turnos);
     setError(''); // limpiamos errores anteriores
   } catch (err) {
@@ -44,7 +46,8 @@ const MisTurnosMedico = () => {
   const actualizarEstado = async (id, nuevoEstado) => {
     try {
       const config = { headers: { Authorization: `Bearer ${token}` } };
-      await axios.put(`http://localhost:3000/api/turnos/${id}`, { estado: nuevoEstado }, config);
+      await api.put(`/api/turnos/${id}`, { estado: nuevoEstado }, config);
+      //await axios.put(`http://localhost:3000/api/turnos/${id}`, { estado: nuevoEstado }, config);
       setMensaje(`Turno ${nuevoEstado} exitosamente`);
       cargarTurnos(); // refrescar
     // eslint-disable-next-line no-unused-vars

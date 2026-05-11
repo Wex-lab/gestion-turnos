@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api';
 import Navbar from '../components/Navbar';
 import { useNavigate } from 'react-router-dom';
 
@@ -25,7 +25,7 @@ const AdminTurnos = () => {
   const cargarTurnos = async () => {
   try {
     const config = { headers: { Authorization: `Bearer ${token}` } };
-    const res = await axios.get('http://localhost:3000/api/turnos', config);
+    const res = await api.get('/api/turnos', config);
     setTurnos(res.data.turnos);
     setError(''); // limpiamos errores anteriores
   } catch (err) {
@@ -45,7 +45,7 @@ const AdminTurnos = () => {
   const actualizarEstado = async (id, nuevoEstado) => {
     try {
       const config = { headers: { Authorization: `Bearer ${token}` } };
-      await axios.put(`http://localhost:3000/api/turnos/${id}`, { estado: nuevoEstado }, config);
+      await api.put(`/api/turnos/${id}`, { estado: nuevoEstado }, config);
       setMensaje(`Turno actualizado a ${nuevoEstado}`);
       cargarTurnos();
     // eslint-disable-next-line no-unused-vars

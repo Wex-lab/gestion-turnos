@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api';
+//import axios from 'axios';
 import Navbar from '../components/Navbar';
 import { useNavigate } from 'react-router-dom';
 
@@ -26,7 +27,8 @@ const AdminUsuarios = () => {
   const cargarUsuarios = async () => {
     try {
       const config = { headers: { Authorization: `Bearer ${token}` } };
-      const res = await axios.get('http://localhost:3000/api/usuarios', config);
+      const res = await api.get('/api/usuarios', config);
+      //const res = await axios.get('http://localhost:3000/api/usuarios', config);
       setUsuarios(res.data.usuarios);
     // eslint-disable-next-line no-unused-vars
     } catch (err) {
@@ -38,7 +40,8 @@ const AdminUsuarios = () => {
     if (!window.confirm('¿Seguro que deseas eliminar este usuario?')) return;
     try {
       const config = { headers: { Authorization: `Bearer ${token}` } };
-      await axios.delete(`http://localhost:3000/api/usuarios/${id}`, config);
+      await api.delete(`/api/usuarios/${id}`, config);
+      //await axios.delete(`http://localhost:3000/api/usuarios/${id}`, config);
       setMensaje('Usuario eliminado');
       cargarUsuarios(); // refrescar lista
     // eslint-disable-next-line no-unused-vars
@@ -73,7 +76,8 @@ const AdminUsuarios = () => {
       // Solo enviamos campos que no estén vacíos (menos password que puede ser opcional)
       const data = { ...formEdit };
       if (!data.password) delete data.password; // no enviar password vacío
-      await axios.put(`http://localhost:3000/api/usuarios/${id}`, data, config);
+      await api.put(`/api/usuarios/${id}`, data, config);
+      //await axios.put(`http://localhost:3000/api/usuarios/${id}`, data, config);
       setMensaje('Usuario actualizado');
       setEditando(null);
       cargarUsuarios();
