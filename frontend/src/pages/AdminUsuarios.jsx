@@ -92,57 +92,116 @@ const AdminUsuarios = () => {
   }
 
   return (
-    <div>
+    <div className="min-h-screen bg-gray-50">
       <Navbar usuario={usuarioLS} />
-      <div style={{ maxWidth: '800px', margin: '50px auto' }}>
-        <h1>Gestión de Usuarios</h1>
-        {mensaje && <p style={{ color: 'green' }}>{mensaje}</p>}
-        {error && <p style={{ color: 'red' }}>{error}</p>}
+      <div className="max-w-5xl mx-auto py-10 px-4">
+        <h1 className="text-3xl font-bold text-medico-dark mb-6">Gestión de Usuarios</h1>
+        
+        {mensaje && <p className="text-green-600 mb-4">{mensaje}</p>}
+        {error && <p className="text-red-500 mb-4">{error}</p>}
 
-        <table border="1" cellPadding="5" style={{ width: '100%', textAlign: 'left' }}>
-          <thead>
-            <tr>
-              <th>Nombre</th>
-              <th>Email</th>
-              <th>Rol</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            {usuarios.map((u) => (
-              <tr key={u._id}>
-                {editando === u._id ? (
-                  <>
-                    <td><input name="nombre" value={formEdit.nombre} onChange={handleEditChange} /></td>
-                    <td><input name="email" value={formEdit.email} onChange={handleEditChange} /></td>
-                    <td>
-                      <select name="rol" value={formEdit.rol} onChange={handleEditChange}>
-                        <option value="paciente">Paciente</option>
-                        <option value="medico">Médico</option>
-                        <option value="administrador">Administrador</option>
-                      </select>
-                    </td>
-                    <td>
-                      <input name="password" type="password" placeholder="Nueva contraseña (opcional)" value={formEdit.password} onChange={handleEditChange} />
-                      <button onClick={() => guardarEdicion(u._id)}>Guardar</button>
-                      <button onClick={cancelarEdicion}>Cancelar</button>
-                    </td>
-                  </>
-                ) : (
-                  <>
-                    <td>{u.nombre}</td>
-                    <td>{u.email}</td>
-                    <td>{u.rol}</td>
-                    <td>
-                      <button onClick={() => iniciarEdicion(u)}>Editar</button>
-                      <button onClick={() => eliminarUsuario(u._id)}>Eliminar</button>
-                    </td>
-                  </>
-                )}
+        <div className="bg-white rounded-xl shadow overflow-hidden">
+          <table className="w-full text-left">
+            <thead className="bg-medico-dark text-white">
+              <tr>
+                <th className="px-6 py-3 font-semibold">Nombre</th>
+                <th className="px-6 py-3 font-semibold">Email</th>
+                <th className="px-6 py-3 font-semibold">Rol</th>
+                <th className="px-6 py-3 font-semibold">Acciones</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {usuarios.map((u) => (
+                <tr key={u._id} className="border-b hover:bg-gray-50 transition">
+                  {editando === u._id ? (
+                    <>
+                      <td className="px-6 py-4">
+                        <input
+                          name="nombre"
+                          value={formEdit.nombre}
+                          onChange={handleEditChange}
+                          className="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-medico-medium"
+                        />
+                      </td>
+                      <td className="px-6 py-4">
+                        <input
+                          name="email"
+                          value={formEdit.email}
+                          onChange={handleEditChange}
+                          className="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-medico-medium"
+                        />
+                      </td>
+                      <td className="px-6 py-4">
+                        <select
+                          name="rol"
+                          value={formEdit.rol}
+                          onChange={handleEditChange}
+                          className="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-medico-medium bg-white"
+                        >
+                          <option value="paciente">Paciente</option>
+                          <option value="medico">Médico</option>
+                          <option value="administrador">Administrador</option>
+                        </select>
+                      </td>
+                      <td className="px-6 py-4">
+                        <div className="flex flex-col space-y-2">
+                          <input
+                            name="password"
+                            type="password"
+                            placeholder="Nueva contraseña (opcional)"
+                            value={formEdit.password}
+                            onChange={handleEditChange}
+                            className="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-medico-medium text-sm"
+                          />
+                          <div className="flex space-x-2">
+                            <button
+                              onClick={() => guardarEdicion(u._id)}
+                              className="bg-green-100 text-green-700 px-3 py-1 rounded-lg hover:bg-green-200 transition text-sm"
+                            >
+                              Guardar
+                            </button>
+                            <button
+                              onClick={cancelarEdicion}
+                              className="bg-gray-100 text-gray-700 px-3 py-1 rounded-lg hover:bg-gray-200 transition text-sm"
+                            >
+                              Cancelar
+                            </button>
+                          </div>
+                        </div>
+                      </td>
+                    </>
+                  ) : (
+                    <>
+                      <td className="px-6 py-4 font-medium text-gray-800">{u.nombre}</td>
+                      <td className="px-6 py-4 text-gray-600">{u.email}</td>
+                      <td className="px-6 py-4">
+                        <span className="text-xs bg-medico-light text-medico-dark px-2 py-0.5 rounded-full">
+                          {u.rol}
+                        </span>
+                      </td>
+                      <td className="px-6 py-4">
+                        <div className="flex space-x-2">
+                          <button
+                            onClick={() => iniciarEdicion(u)}
+                            className="bg-blue-50 text-blue-700 px-3 py-1 rounded-lg hover:bg-blue-100 transition text-sm"
+                          >
+                            Editar
+                          </button>
+                          <button
+                            onClick={() => eliminarUsuario(u._id)}
+                            className="bg-red-50 text-red-700 px-3 py-1 rounded-lg hover:bg-red-100 transition text-sm"
+                          >
+                            Eliminar
+                          </button>
+                        </div>
+                      </td>
+                    </>
+                  )}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

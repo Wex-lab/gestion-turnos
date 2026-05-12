@@ -13,25 +13,48 @@ const Navbar = ({ usuario }) => {
   if (!usuario) return null;
 
   return (
-    <nav style={{ background: '#f0f0f0', padding: '10px 20px', display: 'flex', justifyContent: 'space-between' }}>
-      <div>
-        <Link to="/dashboard" style={{ marginRight: '15px' }}>Inicio</Link>
-        {usuario.rol === 'administrador' && (
-          <>
-            <Link to="/admin/usuarios" style={{ marginRight: '15px' }}>Gestionar Usuarios</Link>
-            <Link to="/admin/turnos" style={{ marginRight: '15px' }}>Todos los Turnos</Link>
-          </>
-        )}
-        {usuario.rol === 'medico' && (
-          <Link to="/medico/turnos" style={{ marginRight: '15px' }}>Mis Turnos</Link>
-        )}
-        {usuario.rol === 'paciente' && (
-          <Link to="/paciente/solicitar-turno" style={{ marginRight: '15px' }}>Solicitar Turno</Link>
-        )}
+    <nav className="bg-white shadow-md px-6 py-3 flex justify-between items-center">
+      <div className="flex items-center space-x-6">
+        <Link to="/dashboard" className="text-medico-dark font-bold text-lg hover:text-medico-medium transition-colors">
+          🏥 Gestión Turnos
+        </Link>
+        <div className="flex space-x-4">
+          {usuario.rol === 'administrador' && (
+            <>
+              <Link to="/admin/usuarios" className="text-gray-600 hover:text-medico-medium transition-colors">
+                Gestionar Usuarios
+              </Link>
+              <Link to="/admin/turnos" className="text-gray-600 hover:text-medico-medium transition-colors">
+                Todos los Turnos
+              </Link>
+            </>
+          )}
+          {usuario.rol === 'medico' && (
+            <Link to="/medico/turnos" className="text-gray-600 hover:text-medico-medium transition-colors">
+              Mis Turnos
+            </Link>
+          )}
+          {usuario.rol === 'paciente' && (
+            <Link to="/paciente/solicitar-turno" className="text-gray-600 hover:text-medico-medium transition-colors">
+              Solicitar Turno
+            </Link>
+          )}
+        </div>
       </div>
-      <div>
-        <span style={{ marginRight: '15px' }}>{usuario.nombre} ({usuario.rol})</span>
-        <button onClick={cerrarSesion}>Cerrar sesión</button>
+
+      <div className="flex items-center space-x-4">
+        <span className="text-sm text-gray-500">
+          {usuario.nombre}{' '}
+          <span className="text-xs bg-medico-light text-medico-dark px-2 py-0.5 rounded-full ml-1">
+            ({usuario.rol})
+          </span>
+        </span>
+        <button
+          onClick={cerrarSesion}
+          className="bg-red-50 text-red-600 px-4 py-1.5 rounded-lg hover:bg-red-100 transition-colors text-sm"
+        >
+          Cerrar sesión
+        </button>
       </div>
     </nav>
   );
